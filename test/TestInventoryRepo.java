@@ -3,13 +3,15 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.omg.CORBA.DynAnyPackage.Invalid;
 
+import javax.swing.text.Style;
+
 /**
  * Unit test InventoryRepo interface
  */
 public class TestInventoryRepo {
     private static Channel validChannel;
     private static Market validMarket;
-    private final static String validStyle = "style-9";
+    private static StyleCode validStyle;
     private final static String validSku = "br579-a";
     private final static String validDescription = "blue jeans";
 
@@ -18,6 +20,7 @@ public class TestInventoryRepo {
         try {
             validChannel = new Channel("channel-5");
             validMarket = new Market("market-7");
+            validStyle = new StyleCode("style-9");
         }
         catch (Exception ex) {
             Assert.fail(ex.getMessage());
@@ -45,11 +48,6 @@ public class TestInventoryRepo {
         InventoryItem item = im.LookUpItem(validChannel, validMarket, validStyle, null);
     }
 
-    @Test(expected = Exception.class)
-    public void TestInvalidStyle() throws Exception {
-        InventoryRepo im = new InventoryRepo();
-        InventoryItem item = im.LookUpItem(validChannel, validMarket, "styl", validDescription);
-    }
     @Test(expected = Exception.class)
     public void TestInvalidDescription() throws Exception {
         InventoryRepo im = new InventoryRepo();
@@ -86,5 +84,14 @@ public class TestInventoryRepo {
     @Test(expected = InvalidMarketException.class)
     public void TestInvalidMarket() throws InvalidMarketException {
         Market badMarket = new Market("ex");
+    }
+
+    @Test(expected = InvalidStyleCodeException.class)
+    public void TestNullStyleCode() throws InvalidStyleCodeException {
+        StyleCode badStyle = new StyleCode(null);
+    }
+    @Test(expected = InvalidStyleCodeException.class)
+    public void TestInvalidStyleCode() throws InvalidStyleCodeException {
+        StyleCode badStyle = new StyleCode("ex");
     }
 }

@@ -1,3 +1,4 @@
+import javax.swing.text.Style;
 import java.util.List;
 
 /**
@@ -6,7 +7,7 @@ import java.util.List;
 public class InventoryItem {
     private Channel _channel;
     private Market _market;
-    private String _style;
+    private StyleCode _style;
     private String _sku;
     private String _description;
 
@@ -14,7 +15,7 @@ public class InventoryItem {
 
     }
 
-    public InventoryItem(Channel chnl, Market mkt, String styl, String sk, String desc) {
+    public InventoryItem(Channel chnl, Market mkt, StyleCode styl, String sk, String desc) {
         this();
         _channel = chnl;
         _market = mkt;
@@ -27,8 +28,8 @@ public class InventoryItem {
     public void setChannel(Channel value) { _channel = value; }
     public Market getMarket() { return _market; }
     public void setMarket(Market value) { _market = value; }
-    public String getStyle() { return _style; }
-    public void setStyle(String value) { _style = value; }
+    public StyleCode getStyle() { return _style; }
+    public void setStyle(StyleCode value) { _style = value; }
     public String getSku() { return _sku; }
     public void setSku(String value) { _sku = value; }
     public String getDescription() { return _description; }
