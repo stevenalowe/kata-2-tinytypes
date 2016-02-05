@@ -23,10 +23,7 @@ public class InventoryRepo {
         return item;
     }
 
-    public InventoryItem LookUpItem(String sku) throws Exception {
-        if (sku == null || sku.length() < 6 || sku.length() > 10) {
-            throw new Exception("Invalid sku");
-        }
+    public InventoryItem LookUpItem(Sku sku) throws Exception {
         DatabaseManager dbmgr = new DatabaseManager("Inventory");
         InventoryItem item = (InventoryItem)dbmgr.FindItem(sku);
         if (item == null) {

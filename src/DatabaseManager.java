@@ -35,11 +35,11 @@ public class DatabaseManager {
         if (!description.toLowerCase().startsWith("blue jeans")) {
             throw new Exception("Failed to find item like " + description);
         }
-        return new InventoryItem(channel,market,new StyleCode("style-9"),"br579-a",description);
+        return new InventoryItem(channel,market,new StyleCode("style-9"),new Sku("br579-a"),description);
     }
-    public Object FindItem(String sku) throws Exception {
+    public Object FindItem(Sku sku) throws Exception {
         //pretend we talk to the database here, and get back a 5-7-9 item if successful
-        if (!sku.toLowerCase().equals("br579-a")) {
+        if (!sku.getName().toLowerCase().equals("br579-a")) {
             throw new Exception("Failed to find item " + sku);
         }
         return new InventoryItem(new Channel("channel-5"),new Market("market-7"),new StyleCode("style-9"),sku,"blue jeans");

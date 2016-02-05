@@ -12,7 +12,7 @@ public class TestInventoryRepo {
     private static Channel validChannel;
     private static Market validMarket;
     private static StyleCode validStyle;
-    private final static String validSku = "br579-a";
+    private static Sku validSku;
     private final static String validDescription = "blue jeans";
 
     @BeforeClass
@@ -21,6 +21,7 @@ public class TestInventoryRepo {
             validChannel = new Channel("channel-5");
             validMarket = new Market("market-7");
             validStyle = new StyleCode("style-9");
+            validSku =  new Sku("br579-a");
         }
         catch (Exception ex) {
             Assert.fail(ex.getMessage());
@@ -93,5 +94,14 @@ public class TestInventoryRepo {
     @Test(expected = InvalidStyleCodeException.class)
     public void TestInvalidStyleCode() throws InvalidStyleCodeException {
         StyleCode badStyle = new StyleCode("ex");
+    }
+
+    @Test(expected = InvalidSkuException.class)
+    public void TestNullSku() throws InvalidSkuException {
+        Sku badSku = new Sku(null);
+    }
+    @Test(expected = InvalidSkuException.class)
+    public void TestInvalidSku() throws InvalidSkuException {
+        Sku badSku = new Sku("ex");
     }
 }
