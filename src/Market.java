@@ -1,7 +1,11 @@
+import java.io.Serializable;
+
 /**
  * a tinytype for a Market, which has only a name
  */
-final public class Market {
+final public class Market implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private final static int MINIMUM_MARKET_LENGTH = 4;
     private final static int MAXIMUM_MARKET_LENGTH = 8;
 

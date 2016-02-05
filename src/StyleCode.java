@@ -1,7 +1,11 @@
+import java.io.Serializable;
+
 /**
  * a tinytype for a StyleCode, which has only a name
  */
-final public class StyleCode {
+final public class StyleCode implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private final static int MINIMUM_STYLE_CODE_LENGTH = 5;
     private final static int MAXIMUM_STYLE_CODE_LENGTH = 10;
 

@@ -1,7 +1,11 @@
+import java.io.Serializable;
+
 /**
  * a tinytype for a Channel, which has only a name
  */
-final public class Channel {
+final public class Channel implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private final static int MINIMUM_CHANNEL_NAME_LENGTH = 7;
 
     private final String _name;
