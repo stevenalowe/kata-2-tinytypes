@@ -16,12 +16,9 @@ public class DatabaseManager {
         }
         return true;
     }
-    public boolean FindMarket(String market) throws Exception {
-        if (market == null || market.length() < 5) {
-            throw new Exception("Invalid market");
-        }
+    public boolean FindMarket(Market market) throws Exception {
         //pretend we talk to the database here, and we only have one market, market-7
-        if (!market.toLowerCase().equals("market-7")) {
+        if (!market.getName().toLowerCase().equals("market-7")) {
             throw new Exception("Failed to find market " + market);
         }
         return true;
@@ -36,18 +33,18 @@ public class DatabaseManager {
         }
         return true;
     }
-    public Object FindItem(String style, String market, Channel channel, String description) throws Exception {
+    public Object FindItem(String style, Market market, Channel channel, String description) throws Exception {
         //pretend we talk to the database here, and get back a 5-7-9 item if successful
         if (!description.toLowerCase().startsWith("blue jeans")) {
             throw new Exception("Failed to find item like " + description);
         }
-        return new InventoryItem(channel,"market-7","style-9","br579-a",description);
+        return new InventoryItem(channel,market,"style-9","br579-a",description);
     }
     public Object FindItem(String sku) throws Exception {
         //pretend we talk to the database here, and get back a 5-7-9 item if successful
         if (!sku.toLowerCase().equals("br579-a")) {
             throw new Exception("Failed to find item " + sku);
         }
-        return new InventoryItem(new Channel("channel-5"),"market-7","style-9",sku,"blue jeans");
+        return new InventoryItem(new Channel("channel-5"),new Market("market-7"),"style-9",sku,"blue jeans");
     }
 }

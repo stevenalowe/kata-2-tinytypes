@@ -2,10 +2,7 @@
  * InventoryManager - a facade to the database facade for inventory
  */
 public class InventoryRepo {
-    public InventoryItem LookUpItem(Channel channel, String market, String styleCode, String description) throws Exception {
-        if (market == null || market.length() < 4 || market.length() > 8) {
-            throw new Exception("Invalid market");
-        }
+    public InventoryItem LookUpItem(Channel channel, Market market, String styleCode, String description) throws Exception {
         if (styleCode == null || styleCode.length() < 5 || styleCode.length() > 10) {
             throw new Exception("Invalid style code");
         }

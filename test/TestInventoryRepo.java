@@ -8,7 +8,7 @@ import org.omg.CORBA.DynAnyPackage.Invalid;
  */
 public class TestInventoryRepo {
     private static Channel validChannel;
-    private final static String validMarket = "market-7";
+    private static Market validMarket;
     private final static String validStyle = "style-9";
     private final static String validSku = "br579-a";
     private final static String validDescription = "blue jeans";
@@ -17,6 +17,7 @@ public class TestInventoryRepo {
     public static void OneTimeSetup() {
         try {
             validChannel = new Channel("channel-5");
+            validMarket = new Market("market-7");
         }
         catch (Exception ex) {
             Assert.fail(ex.getMessage());
@@ -28,7 +29,7 @@ public class TestInventoryRepo {
         InventoryRepo im = new InventoryRepo();
         InventoryItem item = im.LookUpItem(null, validMarket, validStyle, validDescription);
     }
-    @Test(expected = Exception.class)
+    @Test(expected = NullPointerException.class)
     public void TestNullMarket() throws Exception {
         InventoryRepo im = new InventoryRepo();
         InventoryItem item = im.LookUpItem(validChannel, null, validStyle, validDescription);
@@ -44,11 +45,6 @@ public class TestInventoryRepo {
         InventoryItem item = im.LookUpItem(validChannel, validMarket, validStyle, null);
     }
 
-    @Test(expected = Exception.class)
-    public void TestInvalidMarket() throws Exception {
-        InventoryRepo im = new InventoryRepo();
-        InventoryItem item = im.LookUpItem(validChannel, "mkt", validStyle, validDescription);
-    }
     @Test(expected = Exception.class)
     public void TestInvalidStyle() throws Exception {
         InventoryRepo im = new InventoryRepo();
@@ -81,5 +77,14 @@ public class TestInventoryRepo {
     @Test(expected = InvalidChannelException.class)
     public void TestInvalidChannel() throws InvalidChannelException {
         Channel badChannel = new Channel("ex");
+    }
+
+    @Test(expected = InvalidMarketException.class)
+    public void TestNullMarketName() throws InvalidMarketException {
+        Market badMarket = new Market(null);
+    }
+    @Test(expected = InvalidMarketException.class)
+    public void TestInvalidMarket() throws InvalidMarketException {
+        Market badMarket = new Market("ex");
     }
 }
