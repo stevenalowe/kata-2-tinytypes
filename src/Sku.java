@@ -1,9 +1,14 @@
+import java.io.Serializable;
+
 /**
  * a tinytype for a Sku, which has only a name
  */
-final public class Sku {
+final public class Sku implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private final static int MINIMUM_SKU_LENGTH = 6;
-    private final static int MAXIMUM_SKU_LENGTH = 9;
+    private final static int MAXIMUM_SKU_LENGTH = 16;
+    private final static int MUST_BE_DIGIT_INDEX = 2;
 
     private final String _name;
 
@@ -27,6 +32,12 @@ final public class Sku {
                     "Sku name may be at most " +
                             MAXIMUM_SKU_LENGTH + " characters, " + name +
                             " was " + name.length() + " characters long");
+        }
+        if (!Character.isDigit(name.charAt(MUST_BE_DIGIT_INDEX))) {
+            throw new InvalidSkuException(
+                    "Sku name must have a digit in the " +
+                            (MUST_BE_DIGIT_INDEX+1) + " position, not a " +
+                            name.charAt(MUST_BE_DIGIT_INDEX));
         }
     }
 

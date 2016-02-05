@@ -4,6 +4,7 @@ import org.junit.Test;
 import org.omg.CORBA.DynAnyPackage.Invalid;
 
 import javax.swing.text.Style;
+import java.io.*;
 
 /**
  * Unit test InventoryRepo interface
@@ -103,5 +104,47 @@ public class TestInventoryRepo {
     @Test(expected = InvalidSkuException.class)
     public void TestInvalidSku() throws InvalidSkuException {
         Sku badSku = new Sku("ex");
+    }
+    @Test(expected = InvalidSkuException.class)
+    public void TestInvalidSkuNonDigitViolation() throws InvalidSkuException {
+        Sku badSku = new Sku("brX79-a");
+    }
+
+    @Test
+    public void TestInventoryItemSerialization() throws Exception {
+        InventoryRepo im = new InventoryRepo();
+        InventoryItem writeItem = im.LookUpItem(validSku);
+        Assert.assertEquals("blue jeans", writeItem.getDescription());
+
+        try {
+            FileOutputStream fileOut = new FileOutputStream("inventoryitem.ser");
+            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+            out.writeObject(writeItem);
+            out.close();
+            fileOut.close();
+        }
+        catch(IOException i) {
+            Assert.fail("Unexpected IO exception serializing InventoryItem: " + i.toString());
+        }
+
+        InventoryItem readItem = null;
+        try {
+            FileInputStream fileIn = new FileInputStream("inventoryitem.ser");
+            ObjectInputStream in = new ObjectInputStream(fileIn);
+            readItem = (InventoryItem) in.readObject();
+            in.close();
+            fileIn.close();
+        }
+        catch(IOException i) {
+            Assert.fail("Unexpected IO exception deserializing InventoryItem: " + i.toString());
+        }
+        catch(ClassNotFoundException c) {
+            Assert.fail("InventoryItem class not found: " + c.toString());
+        }
+
+        Assert.assertEquals(writeItem.getChannel(), readItem.getChannel());
+        Assert.assertEquals(writeItem.getMarket(), readItem.getMarket());
+        Assert.assertEquals(writeItem.getSku(), readItem.getSku());
+        Assert.assertEquals(writeItem.getStyle(), readItem.getStyle());
     }
 }

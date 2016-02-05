@@ -1,10 +1,13 @@
 import javax.swing.text.Style;
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * InventoryItem - a dumb data object where every fields is a String
  */
-public class InventoryItem {
+public class InventoryItem implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private Channel _channel;
     private Market _market;
     private StyleCode _style;
