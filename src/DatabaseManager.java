@@ -1,5 +1,5 @@
 /**
- * DatabaseManager - adapter to talk to Inventory database
+ * DatabaseManager - (fake) adapter to talk to Inventory database
  */
 public class DatabaseManager {
     private String _dbname;
@@ -9,12 +9,9 @@ public class DatabaseManager {
         }
         _dbname = dbname;
     }
-    public boolean FindChannel(String channel) throws Exception {
-        if (channel == null || channel.length() < 7) {
-            throw new Exception("Invalid channel");
-        }
+    public boolean FindChannel(Channel channel) throws Exception {
         //pretend we talk to the database here, and we only have one channel, channel-5
-        if (!channel.toLowerCase().equals("channel-5")) {
+        if (!channel.getName().toLowerCase().equals("channel-5")) {
             throw new Exception("Failed to find channel " + channel);
         }
         return true;
@@ -39,19 +36,18 @@ public class DatabaseManager {
         }
         return true;
     }
-    public Object FindItem(String style, String market, String description, String channel) throws Exception {
+    public Object FindItem(String style, String market, Channel channel, String description) throws Exception {
         //pretend we talk to the database here, and get back a 5-7-9 item if successful
         if (!description.toLowerCase().startsWith("blue jeans")) {
             throw new Exception("Failed to find item like " + description);
         }
-        return new InventoryItem("channel-5","market-7","style-9","br579-a",description);
+        return new InventoryItem(channel,"market-7","style-9","br579-a",description);
     }
-
     public Object FindItem(String sku) throws Exception {
         //pretend we talk to the database here, and get back a 5-7-9 item if successful
         if (!sku.toLowerCase().equals("br579-a")) {
             throw new Exception("Failed to find item " + sku);
         }
-        return new InventoryItem("channel-5","market-7","style-9",sku,"blue jeans");
+        return new InventoryItem(new Channel("channel-5"),"market-7","style-9",sku,"blue jeans");
     }
 }

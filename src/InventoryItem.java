@@ -4,7 +4,7 @@ import java.util.List;
  * InventoryItem - a dumb data object where every fields is a String
  */
 public class InventoryItem {
-    private String _channel;
+    private Channel _channel;
     private String _market;
     private String _style;
     private String _sku;
@@ -14,7 +14,7 @@ public class InventoryItem {
 
     }
 
-    public InventoryItem(String chnl, String mkt, String styl, String sk, String desc) {
+    public InventoryItem(Channel chnl, String mkt, String styl, String sk, String desc) {
         this();
         _channel = chnl;
         _market = mkt;
@@ -23,8 +23,8 @@ public class InventoryItem {
         _description = desc;
     }
 
-    public String getChannel() { return _channel; }
-    public void setChannel(String value) { _channel = value; }
+    public Channel getChannel() { return _channel; }
+    public void setChannel(Channel value) { _channel = value; }
     public String getMarket() { return _market; }
     public void setMarket(String value) { _market = value; }
     public String getStyle() { return _style; }
